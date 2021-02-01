@@ -1,0 +1,1 @@
+Folder contains common modules that are shared across a number of projects.
