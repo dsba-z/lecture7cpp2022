@@ -1,5 +1,5 @@
 # DSBA Introduction to Programming // Lectures 6-7 Supplementary Code
-Fall semester 2019/20
+Spring semester 2020/21
 
 1) Reference semantics samples
 2) Range-based `for` loop value and ref versions
