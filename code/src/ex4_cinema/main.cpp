@@ -6,14 +6,9 @@
  *  Dealing with matrices: let's go to a cinema!
  */
 
-
 #include <iostream>
 #include <vector>
 #include <sstream>
-
-// TODO: uncomment this for a home exercise
-// #include "../common/vect_utils.h"
-
 
 using std::cout;
 using std::cin;
@@ -21,7 +16,6 @@ using std::cin;
 // Define datatypes for representing
 typedef std::vector<int> Row;
 typedef std::vector<Row> SittingPlan;
-typedef unsigned short UShort;
 
 //------------------------------------------------------------------------------
 
@@ -46,11 +40,11 @@ Row inputRow()
     // parse using stringstream (don't forget #include <sstream>)
     std::stringstream ss(rowStr);
 
-    char ch;
-    while( ss >> ch )
+    int seatStatus;
+    while( ss >> seatStatus )
     {
         // can check here whether it is proper or not
-        row.push_back(ch);
+        row.push_back(seatStatus);
     }
 
     return row;
@@ -83,15 +77,9 @@ SittingPlan inputSittingPlan()
 
 //------------------------------------------------------------------------------
 
-bool isSold(char seat)
+bool isSold(int seat)
 {
-    return (seat == '1');
-
-    //return (seat == '1') ? true : false;
-//    if(seat == '1')
-//        return true;
-
-//    return false;
+    return seat == 1;
 }
 
 
@@ -102,21 +90,20 @@ void printRow(const Row& row)
     int sold = 0;
     int total = 0;
 
-    for(char el : row)
+    for(int el : row)
     {
         ++total;
-        char symb;
+        char symbol;
 
-        //if(el == '1')   // DONE: to improve the logic of checking
         if(isSold(el))
         {
             ++sold;
-            symb = '*';
+            symbol = '*';
         }
         else
-            symb = '.';
+            symbol = '.';
 
-        std::cout << symb;
+        std::cout << symbol;
     }
 
     // output statistics
@@ -139,11 +126,11 @@ void printSittingPlan(const SittingPlan& sp)
 //------------------------------------------------------------------------------
 
 // Looks for a sequence of k free seats ...
-int findFreeSeq(const Row& row, UShort k)
+int findFreeSeq(const Row& row, int k)
 {
-    UShort freeCnt = 0;
+    int freeCnt = 0;
     //
-    for(UShort i = 0; i < row.size(); ++i)
+    for(int i = 0; i < row.size(); ++i)
     {
         if(!isSold(row[i]))     // if a seat is free
         {
@@ -160,7 +147,7 @@ int findFreeSeq(const Row& row, UShort k)
 
 //------------------------------------------------------------------------------
 
-int findFreeRow(const SittingPlan& sp, UShort k, int& seat)
+int findFreeRow(const SittingPlan& sp, int k, int& seat)
 {
     int rowCount = 0;
     // iterate all over rows and looking for a first suitable
@@ -192,7 +179,7 @@ int main()
     printSittingPlan(sp);
 
     cout << "\nInput seat num k = ";
-    UShort k;
+    int k;
     cin >> k;
     int rowNum, seatNum;
     rowNum = findFreeRow(sp, k, seatNum);
